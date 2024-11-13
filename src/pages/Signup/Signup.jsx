@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { app } from "../../components/firebase/firebase.config";
 
@@ -10,33 +10,21 @@ const Signup = () => {
     const [loading, setLoading] = useState(true);
 
     // Create User 
-    console.log(user)
     const createUser = (email, password) => {
         // toTry: We can comment the setLoading for check.
         setLoading(true);
         createUserWithEmailAndPassword(auth, email, password);
     };
 
-console.log (createUser)
-    // User Login
-    // const login = (email, password) => {
-    //     setLoading(true);
-    //     return signInWithEmailAndPassword(auth, email, password);
-    // };
+    console.log(createUser.email, user, loading)
 
-    // SignOut
-    // const signOut = (auth) => {
-    //     setLoading(true);
-    //     return auth.signOut();
-    // };
-
-    // listening on auth state change 
+    // listening on auth state change
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
         });
-        return () => unSubscribe();
+        () => unSubscribe();
     }, [])
 
 
@@ -50,6 +38,7 @@ console.log (createUser)
         const password = form.password.value;
 
         createUser(email, password)
+            .then(res => res.json())
             .then(result => {
                 console.log('User created:', result.user);
                 setUser(result.user)
