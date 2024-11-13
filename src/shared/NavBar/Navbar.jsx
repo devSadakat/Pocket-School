@@ -8,16 +8,16 @@ const Navbar = () => {
             </div>
             <div className="flex-none">
                 <ul className="menu flex menu-horizontal">
-                    <li className="px-2"><Link>Click Arrow</Link></li>
                     <li>
                         <details>
-                            <summary>Login/SignUp</summary>
+                            <summary>Click Arrow</summary>
                             <ul className="bg-slate-400 fixed rounded p-2">
                                 <button className="btn outline-dashed m-2 bg-red-500 text-white px-2 font-bold"><Link>Blogs</Link></button> <br></br>
                                 <button className="btn outline-dashed m-2 bg-red-500 text-white px-2 font-bold"><Link>Inspiration</Link></button>
                             </ul>
                         </details>
                     </li>
+                    <li className="px-2"><Link to="login">Login/SignUP</Link></li>
                 </ul>
             </div>
         </div>
