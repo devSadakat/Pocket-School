@@ -13,7 +13,7 @@ const Signup = () => {
     const createUser = (email, password) => {
         // toTry: We can comment the setLoading for check.
         setLoading(true);
-        createUserWithEmailAndPassword(auth, email, password);
+        return createUserWithEmailAndPassword(auth, email, password);
     };
 
     console.log(createUser.email, user, loading)
@@ -24,7 +24,7 @@ const Signup = () => {
             setUser(currentUser);
             setLoading(false);
         });
-        () => unSubscribe();
+        return () => unSubscribe();
     }, [])
 
 
@@ -38,11 +38,10 @@ const Signup = () => {
         const password = form.password.value;
 
         createUser(email, password)
-            .then(res => res.json())
-            .then(result => {
-                console.log('User created:', result.user);
-                setUser(result.user)
-                // Add any post-signup logic here (e.g., redirect)
+            .then((userCredential) => {
+                console.log(userCredential.user);
+                setUser(userCredential.user);
+                console.log(user);
             })
             .catch(error => {
                 console.error('Error during signup:', error);
