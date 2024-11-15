@@ -38,10 +38,21 @@ const Signup = () => {
         const password = form.password.value;
 
         createUser(email, password)
-            .then((userCredential) => {
-                console.log(userCredential.user);
-                setUser(userCredential.user);
-                console.log(user);
+            .then(() => {
+                // .then((result) => {
+                //     const createdUser = result.user;
+                //     console.log(createdUser);
+
+                const savedUser = {email: email,password: password};
+                return fetch ('https://server-poket-school.vercel.app/user',{
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(savedUser)
+                })
+                // // setUser(userCredential.user);
+                // console.log(user);
             })
             .catch(error => {
                 console.error('Error during signup:', error);
